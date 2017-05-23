@@ -1,0 +1,97 @@
+<edmx:Edmx
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZHR_PAYSUMMARY_SRV" xml:lang="en" sap:schema-version="1">
+            <EntityType Name="ItemAmounts" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Financialyr"/>
+                    <PropertyRef Name="Paramttype"/>
+                    <PropertyRef Name="Itemamttype"/>
+                </Key>
+                <Property Name="Financialyr" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Character Field Length = 10" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Paramttype" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Character Field Length = 10" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Itemamttype" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Character Field Length = 10" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Amtdesc" Type="Edm.String" MaxLength="100" sap:label="Character 100" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Amount" Type="Edm.Decimal" Precision="10" Scale="2" sap:label="Gross income" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Currency" Type="Edm.String" MaxLength="5" sap:label="Currency" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="currency-code"/>
+                <Property Name="Addlinfo" Type="Edm.String" MaxLength="10" sap:label="Character Field Length = 10" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="Periods" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Financialyr"/>
+                </Key>
+                <Property Name="Empname" Type="Edm.String" MaxLength="40" sap:label="Empl./appl.name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Taxfn" Type="Edm.String" MaxLength="9" sap:label="Tax File Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Status" Type="Edm.String" MaxLength="4" sap:label="Not More Closely Defined Area, Possibly Used for Patchlevels" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Enddate" Type="Edm.DateTime" Precision="7" sap:label="PS end date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Statustxt" Type="Edm.String" MaxLength="25" sap:label="Field" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Empaddress" Type="Edm.String" MaxLength="100" sap:label="Character 100" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Financialyr" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Character Field Length = 10" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Pertext" Type="Edm.String" MaxLength="25" sap:label="Field" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Startdate" Type="Edm.DateTime" Precision="7" sap:label="PS start date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Grossamt" Type="Edm.Decimal" Precision="10" Scale="2" sap:label="Gross income" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Grosscurr" Type="Edm.String" MaxLength="5" sap:label="Currency" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="currency-code"/>
+                <NavigationProperty Name="Totals" Relationship="ZHR_PAYSUMMARY_SRV.PeriodToTotalAmounts" FromRole="FromRole_PeriodToTotalAmounts" ToRole="ToRole_PeriodToTotalAmounts"/>
+            </EntityType>
+            <EntityType Name="TotalAmounts" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Financialyr"/>
+                    <PropertyRef Name="Amttype"/>
+                </Key>
+                <Property Name="Enddate" Type="Edm.DateTime" Precision="7" sap:label="End Date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Financialyr" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Character Field Length = 10" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Amttype" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Character Field Length = 10" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Amtdesc" Type="Edm.String" MaxLength="100" sap:label="Character 100" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Amount" Type="Edm.Decimal" Precision="10" Scale="2" sap:label="Gross income" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Currency" Type="Edm.String" MaxLength="5" sap:label="Currency" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="currency-code"/>
+                <NavigationProperty Name="Items" Relationship="ZHR_PAYSUMMARY_SRV.TotalAmountToItemAmounts" FromRole="FromRole_TotalAmountToItemAmounts" ToRole="ToRole_TotalAmountToItemAmounts"/>
+            </EntityType>
+            <Association Name="TotalAmountToItemAmounts" sap:content-version="1">
+                <End Type="ZHR_PAYSUMMARY_SRV.TotalAmounts" Multiplicity="*" Role="FromRole_TotalAmountToItemAmounts"/>
+                <End Type="ZHR_PAYSUMMARY_SRV.ItemAmounts" Multiplicity="*" Role="ToRole_TotalAmountToItemAmounts"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_TotalAmountToItemAmounts">
+                        <PropertyRef Name="Amttype"/>
+                        <PropertyRef Name="Financialyr"/>
+                    </Principal>
+                    <Dependent Role="ToRole_TotalAmountToItemAmounts">
+                        <PropertyRef Name="Paramttype"/>
+                        <PropertyRef Name="Financialyr"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="PeriodToTotalAmounts" sap:content-version="1">
+                <End Type="ZHR_PAYSUMMARY_SRV.Periods" Multiplicity="1" Role="FromRole_PeriodToTotalAmounts"/>
+                <End Type="ZHR_PAYSUMMARY_SRV.TotalAmounts" Multiplicity="*" Role="ToRole_PeriodToTotalAmounts"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_PeriodToTotalAmounts">
+                        <PropertyRef Name="Financialyr"/>
+                    </Principal>
+                    <Dependent Role="ToRole_PeriodToTotalAmounts">
+                        <PropertyRef Name="Financialyr"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="ZHR_PAYSUMMARY_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="ItemAmountsSet" EntityType="ZHR_PAYSUMMARY_SRV.ItemAmounts" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="PeriodsSet" EntityType="ZHR_PAYSUMMARY_SRV.Periods" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="TotalAmountsSet" EntityType="ZHR_PAYSUMMARY_SRV.TotalAmounts" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <AssociationSet Name="TotalAmountToItemAmountsSet" Association="ZHR_PAYSUMMARY_SRV.TotalAmountToItemAmounts" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="TotalAmountsSet" Role="FromRole_TotalAmountToItemAmounts"/>
+                    <End EntitySet="ItemAmountsSet" Role="ToRole_TotalAmountToItemAmounts"/>
+                </AssociationSet>
+                <AssociationSet Name="PeriodToTotalAmountsSet" Association="ZHR_PAYSUMMARY_SRV.PeriodToTotalAmounts" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="PeriodsSet" Role="FromRole_PeriodToTotalAmounts"/>
+                    <End EntitySet="TotalAmountsSet" Role="ToRole_PeriodToTotalAmounts"/>
+                </AssociationSet>
+            </EntityContainer>
+            <atom:link
+                xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="./sap/ZHR_PAYSUMMARY_SRV/$metadata"/>
+                <atom:link
+                    xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="./sap/ZHR_PAYSUMMARY_SRV/$metadata"/>
+                </Schema>
+            </edmx:DataServices>
+        </edmx:Edmx>

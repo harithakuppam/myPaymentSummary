@@ -1,0 +1,48 @@
+<mvc:View controllerName="qldh.mypaysumm.controller.Detail" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.m.semantic"
+	xmlns:tree="sap.ui.table" xmlns:footerbar="sap.ushell.ui.footerbar">
+	<semantic:DetailPage id="page" navButtonPress="onNavBack" showNavButton="{device>/system/phone}" title="{i18n>detailTitle}"
+		busy="{detailView>/busy}" busyIndicatorDelay="{detailView>/delay}">
+		<semantic:content>
+			<ObjectHeader id="objectHeader"
+				title="{parts:[ {path:'localPSModel>/Startdate', type:'sap.ui.model.type.Date'}, {path:'localPSModel>/Enddate', type:'sap.ui.model.type.Date'} ], formatter: '.formatter.formatDetailTitle'}">
+				<statuses>
+					<ObjectStatus text="{localPSModel>/Statustxt}" visible="{ path: 'localPSModel>/Statustxt', formatter:'.formatter.controlVisib'}"/>
+					<ObjectStatus text="{ path: 'localPSModel>/IsETPAvailable', formatter:'.formatter.formatETPAvailText'}"
+						visible="{localPSModel>/IsETPAvailable}"/>
+				</statuses>
+				<attributes>
+					<ObjectAttribute title="{i18n>tfn}" text="{path:'localPSModel>/Taxfn', formatter:'.formatter.tfnFormatter'}"/>
+					<ObjectAttribute text="{localPSModel>/Empaddress}" visible="{path: 'device>/system/phone', formatter: '.formatter.showAddress'}"/>
+				</attributes>
+			</ObjectHeader>
+			<tree:TreeTable id="PSAmountTreeTable" rows="{path:'localPSModel>/Totals', parameters: {arrayNames:['results']}}" selectionMode="None"
+				enableSelectAll="false" columnHeaderVisible="false">
+				<tree:columns>
+					<tree:Column width="65%">
+						<tree:template>
+							<Text
+								text="{parts:[ {path:'localPSModel>Amtdesc'}, {path:'localPSModel>Amtdescshort'}, {path:'device>/system/phone'} ], formatter: '.formatter.formatAmtDesc'}"/>
+						</tree:template>
+					</tree:Column>
+					<tree:Column hAlign="Right" width="35%">
+						<tree:template>
+							<Text text="{path:'localPSModel>Amount', formatter:'.formatter.currencyValue'}"/>
+						</tree:template>
+					</tree:Column>
+				</tree:columns>
+			</tree:TreeTable>
+		</semantic:content>
+		<semantic:customFooterContent>
+			<Button text="{i18n>openPDF}" tooltip="{i18n>openPDFTooltip}" press="onOpenPDF" type="Emphasized"/>
+		</semantic:customFooterContent>
+		<semantic:sendEmailAction>
+			<semantic:SendEmailAction id="shareEmail" press="onShareEmailPress"/>
+		</semantic:sendEmailAction>
+		<semantic:shareInJamAction>
+			<semantic:ShareInJamAction id="shareInJam" visible="{FLP>/isShareInJamActive}" press="onShareInJamPress"/>
+		</semantic:shareInJamAction>
+		<semantic:saveAsTileAction>
+			<footerbar:AddBookmarkButton id="shareTile" title="{detailView>/saveAsTileTitle}"/>
+		</semantic:saveAsTileAction>
+	</semantic:DetailPage>
+</mvc:View>
