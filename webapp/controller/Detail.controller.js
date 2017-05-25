@@ -78,29 +78,23 @@ sap.ui.define([
 		 * @private
 		 */
 		_onObjectMatched: function(oEvent) {
-			var sObjectId = oEvent.getParameter("arguments").objectId,
+			var oFinYear   = oEvent.getParameter("arguments").finYear,
+			    oSeqnr     = oEvent.getParameter("arguments").seqnr,
 				oViewModel = this.getModel("detailView");
-
-			/*this.getModel().metadataLoaded().then( function() {
-				var sObjectPath = this.getModel().createKey("PeriodsSet", {
-					Financialyr :  sObjectId
-				});
-				this._bindView("/" + sObjectPath);
-			}.bind(this));*/
 
 			this.locModel = new sap.ui.model.json.JSONModel();
 			this.locModel.setDefaultBindingMode(sap.ui.model.BindingMode.OneWay);
 			this.getView().setModel(this.locModel, "localPSModel");
 
-			this.pdfPSUrl = this.getModel().sServiceUrl + "/PDFPaySummSet('" + sObjectId + "')/$value";
-			this.financialYr = sObjectId;
+			this.pdfPSUrl = this.getModel().sServiceUrl + "/PDFPaySummSet('" + oFinYear + "')/$value";
+			this.financialYr = oFinYear;
 
-			if (this.onPopulateDataFromCache(sObjectId)) {
+			if (this.onPopulateDataFromCache(oFinYear, oSeqnr)) {
 				oViewModel.setProperty("/busy", false);
 				return;
 			}
 
-			var oPath = "/PeriodsSet('" + sObjectId + "')",
+			var oPath = "/PeriodsSet(Financialyr='" + oFinYear + "',Seqnr='" + oSeqnr + "')",
 				that = this;
 
 			oViewModel.setProperty("/busy", true);
@@ -137,7 +131,7 @@ sap.ui.define([
 		},
 
 		// Populate Data from cache
-		onPopulateDataFromCache: function(oFinancialYr) {
+		onPopulateDataFromCache: function(oFinancialYr, oSeqnr) {
 
 			if (!sap.ui.getCore().AppContext) {
 				return false;
@@ -150,7 +144,8 @@ sap.ui.define([
 			var oPsInCache = false;
 
 			for (var i = 0; i < sap.ui.getCore().AppContext.oPaySummaryCache.length; i++) {
-				if (sap.ui.getCore().AppContext.oPaySummaryCache[i].Financialyr === oFinancialYr) {
+				if (sap.ui.getCore().AppContext.oPaySummaryCache[i].Financialyr === oFinancialYr &&
+				    sap.ui.getCore().AppContext.oPaySummaryCache[i].Seqnr       === oSeqnr) {
 					this.onSetDataLocPSModel(sap.ui.getCore().AppContext.oPaySummaryCache[i], this);
 					oPsInCache = true;
 					break;
@@ -228,7 +223,8 @@ sap.ui.define([
 			var sPath = oElementBinding.getPath(),
 				oResourceBundle = this.getResourceBundle(),
 				oObject = oView.getModel().getObject(sPath),
-				sObjectId = oObject.Financialyr,
+				oFinYr      = oObject.Financialyr,
+				oSeqnr      = oObject.Seqnr,
 				sObjectName = oObject.Financialyr,
 				oViewModel = this.getModel("detailView");
 
@@ -237,9 +233,9 @@ sap.ui.define([
 			oViewModel.setProperty("/saveAsTileTitle", oResourceBundle.getText("shareSaveTileAppTitle", [sObjectName]));
 			oViewModel.setProperty("/shareOnJamTitle", sObjectName);
 			oViewModel.setProperty("/shareSendEmailSubject",
-				oResourceBundle.getText("shareSendEmailObjectSubject", [sObjectId]));
+				oResourceBundle.getText("shareSendEmailObjectSubject", [oFinYr, oSeqnr]));
 			oViewModel.setProperty("/shareSendEmailMessage",
-				oResourceBundle.getText("shareSendEmailObjectMessage", [sObjectName, sObjectId, location.href]));
+				oResourceBundle.getText("shareSendEmailObjectMessage", [sObjectName, oFinYr, oSeqnr, location.href]));
 		},
 
 		_onMetadataLoaded: function() {

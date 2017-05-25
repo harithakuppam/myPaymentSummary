@@ -200,8 +200,10 @@ sap.ui.define([
 						if (mParams.list.getMode() === "None") {
 							return;
 						}
-						var sObjectId = mParams.firstListitem.getBindingContext().getProperty("Financialyr");
-						this.getRouter().navTo("object", {objectId : sObjectId}, true);
+						var oFinYear = mParams.firstListitem.getBindingContext().getProperty("Financialyr"),
+						    oSeqnr   = mParams.firstListitem.getBindingContext().getProperty("Seqnr");
+						    
+						this.getRouter().navTo("object", {finYear : oFinYear, seqnr : oSeqnr}, true);
 					}.bind(this),
 					function (mParams) {
 						if (mParams.error) {
@@ -221,7 +223,8 @@ sap.ui.define([
 			_showDetail : function (oItem) {
 				var bReplace = !Device.system.phone;
 				this.getRouter().navTo("object", {
-					objectId : oItem.getBindingContext().getProperty("Financialyr")
+					finYear : oItem.getBindingContext().getProperty("Financialyr"),
+					seqnr   : oItem.getBindingContext().getProperty("Seqnr")
 				}, bReplace);
 			},
 

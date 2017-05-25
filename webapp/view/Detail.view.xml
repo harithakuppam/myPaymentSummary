@@ -11,6 +11,7 @@
 						visible="{localPSModel>/IsETPAvailable}"/>
 				</statuses>
 				<attributes>
+					<ObjectAttribute text="{localPSModel>/Inctypetxt}" visible="{ path: 'localPSModel>/Inctypetxt', formatter:'.formatter.controlVisib'}"/>
 					<ObjectAttribute title="{i18n>tfn}" text="{path:'localPSModel>/Taxfn', formatter:'.formatter.tfnFormatter'}"/>
 					<ObjectAttribute text="{localPSModel>/Empaddress}" visible="{path: 'device>/system/phone', formatter: '.formatter.showAddress'}"/>
 				</attributes>

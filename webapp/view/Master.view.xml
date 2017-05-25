@@ -24,11 +24,16 @@
 				<items>
 					<ObjectListItem type="{= ${device>/system/phone} ? 'Active' : 'Inactive'}" press="onSelectionChange" title="{Financialyr}">
 						<firstStatus>
-							<ObjectStatus text="{Statustxt}" />
+							<ObjectStatus text="{Statustxt}"/>
 						</firstStatus>
 						<secondStatus>
-							<ObjectStatus text="{ path: 'IsETPAvailable', formatter:'.formatter.formatETPAvailText'}"  visible="{IsETPAvailable}"/>
+							<ObjectStatus text="{ path: 'IsETPAvailable', formatter:'.formatter.formatETPAvailText'}" visible="{IsETPAvailable}"/>
 						</secondStatus>
+						<attributes>
+							<ObjectAttribute text="{Inctypetxt}"/>
+							<ObjectAttribute text="{parts:[ {path:'Startdate', type:'sap.ui.model.type.Date'}, {path:'Enddate', type:'sap.ui.model.type.Date'} ], formatter: '.formatter.formatDetailTitle'}"
+							                 visible="{ path: 'Inctypetxt', formatter:'.formatter.controlVisib'}"/>
+						</attributes>
 					</ObjectListItem>
 				</items>
 			</List>

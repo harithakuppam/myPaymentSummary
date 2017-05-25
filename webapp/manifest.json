@@ -112,7 +112,7 @@
 					]
 				},
 				{
-					"pattern": "{objectId}",
+					"pattern": "{finYear}/{seqnr}",
 					"name": "object",
 					"target": [
 						"master",
